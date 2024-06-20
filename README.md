@@ -36,11 +36,11 @@ $ java -version
 ```
 Se a versão retornada for 21 ou superior, você está pronto para seguir para a próxima etapa. Caso contrário, siga as instruções abaixo para instalar o JDK 21.
 
-2. Download e Instalação do Java 21
+- Download e Instalação do Java 21
    
 Faça o download do JDK 21 a partir do [site oficial da Oracle](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html) e siga as instruções de instalação para o seu sistema operacional.
 
-4. Configuração do Banco de Dados
+3. Configuração do Banco de Dados
 
 Para rodar a aplicação, é necessário ter o banco de dados PostgreSQL disponível localmente com as seguintes configurações:
 Nome do banco de dados: `magazine_dev`
