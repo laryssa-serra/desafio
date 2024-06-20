@@ -33,7 +33,7 @@ Para rodar a aplicação, é necessário ter no mínimo o JDK 21 instalado.
 - Verificar Instalação do Java
 ```bash
 # Verifique se o Java 21 (ou superior) já está instalado
-$ java -version
+ java -version
 ```
 Se a versão retornada for 21 ou superior, você está pronto para seguir para a próxima etapa. Caso contrário, siga a instrução abaixo para instalar o JDK 21.
 
@@ -60,30 +60,30 @@ Para instalar o PostgreSQL localmente, siga as instruções disponíveis no site
 - <b>Instalação via Docker</b>:
 Se preferir usar Docker, execute o comando abaixo para criar um container chamado `magazine-challenge-postgresql` com o PostgreSQL configurado corretamente para utilizar a aplicação:
 ```bash
-$ docker run --name magazine-challenge-postgresql -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=magazine_dev -p 5432:5432 -d postgres
+docker run --name magazine-challenge-postgresql -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=magazine_dev -p 5432:5432 -d postgres
 ```
  
 - Para inicializar o sistema gerenciador de banco de dados (PostgreSQL):
 ```bash
-$ docker start magazine-challenge-postgresql
+docker start magazine-challenge-postgresql
 ```
 
 ### Build da aplicação
 
 ```bash
 # Clone o repositório
-$ git clone https://github.com/laryssa-serra/desafio
+git clone https://github.com/laryssa-serra/desafio
 
 # Acesse a pasta do projeto
-$ cd desafio
+cd desafio
 
 # Instale as dependências do projeto:
-$ ./gradlew build
+./gradlew build
 ```
 
 ### Inicie a aplicação:
 ```bash
-$ ./gradlew bootRun
+./gradlew bootRun
 ```
 Pronto, a aplicação web está pronta para ser utilizada no endereço http://localhost:8080
 
@@ -161,7 +161,7 @@ Ao fazer uma requisição GET para o endpoint, você pode receber as seguintes r
 Para executar os testes unitários com coverage e gerar um relatório HTML, foram adicionadas as dependências do Kover no projeto.
 ```
 # Executa os testes unitários com coverage e gera um relatório HTML
-$ ./gradlew koverHtmlReport
+./gradlew koverHtmlReport
 ```
 
 Após a execução, o caminho para o relatório gerado será exibido no terminal. O relatório HTML fornece uma visualização detalhada da cobertura dos testes, ajudando a identificar áreas do código que necessitam de mais testes.
