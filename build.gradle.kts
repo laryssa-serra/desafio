@@ -3,6 +3,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.5"
 	id("org.flywaydb.flyway") version "10.15.0"
 	id("checkstyle")
+	id("org.jetbrains.kotlinx.kover") version "0.6.1"
 	kotlin("plugin.jpa") version "1.9.24"
 	kotlin("jvm") version "1.9.24"
 	kotlin("plugin.spring") version "1.9.24"
@@ -10,6 +11,7 @@ plugins {
 
 apply{
 	plugin("checkstyle")
+	apply(plugin = "org.jetbrains.kotlinx.kover")
 }
 
 group = "com.luizalabs.logistica"
@@ -43,6 +45,7 @@ dependencies {
 	testImplementation("org.mockito:mockito-core")
 	testImplementation("org.mockito:mockito-junit-jupiter")
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+	testImplementation("org.jetbrains.kotlin:kotlin-test")
 }
 
 kotlin {
@@ -57,7 +60,7 @@ tasks.withType<Test> {
 
 checkstyle {
 	toolVersion = "10.3.4"
-	config = resources.text.fromFile("config/checkstyle/checkstyle.xml")
+	config = resources.text.fromFile("checkstyle.xml")
 }
 
 tasks.withType<Checkstyle> {
@@ -66,4 +69,46 @@ tasks.withType<Checkstyle> {
 		html.required.set(true)
 		html.outputLocation.set(layout.buildDirectory.file("reports/checkstyle/checkstyle.html"))
 	}
+}
+
+kover {
+	verify {
+		rule {
+			isEnabled = true
+			name = "Coverage must be more than 60%"
+			bound {
+				minValue = 60
+			}
+		}
+	}
+
+	filters {
+		classes {
+			excludes += listOf("*di.*", "*Factory*")
+		}
+		annotations {
+			excludes += listOf("*Generated", "*CustomAnnotationToExclude")
+		}
+	}
+	htmlReport {
+		onCheck.set(false)
+	}
+
+	verify {
+		rule {
+			isEnabled = true
+			name = "Line Coverage of Tests must be more than 80%"
+			bound {
+				minValue = 60
+			}
+		}
+	}
+}
+
+tasks.register<Delete>("cleanKoverHtmlReport") {
+	delete(file("build/reports/kover/html"))
+}
+
+tasks.named("koverHtmlReport") {
+	dependsOn("cleanKoverHtmlReport")
 }
