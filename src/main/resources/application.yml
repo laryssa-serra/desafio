@@ -1,0 +1,30 @@
+# Enhanced logger to print detailed DB information
+# logging.level.net.ttddyy.dsproxy.listener: debug
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: desafio
+  datasource:
+    url: jdbc:postgresql://localhost:5432/demo?reWriteBatchedInserts=true
+    username: postgres
+    password: postgres
+  flyway:
+    baseline-on-migrate: true
+    clean-disabled: true
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: update
+        order_inserts: true
+        batch_versioned_data: true
+        jdbc:
+          batch_size: 50
+          fetch_size: 50
+    show-sql: false
+orders:
+  chunk:
+    size: 1000
