@@ -28,8 +28,9 @@ A arquitetura do projeto é baseada nos conceitos de **DDD** (Domain Driven Desi
 
 ### Pré-requisitos
 
-Para rodar a aplicação, é necessário ter no mínimo o JDK 21 instalado. Caso não tenha, siga os passos abaixo para instalar o JDK:
-1. Verificar Instalação do Java
+#### Java
+Para rodar a aplicação, é necessário ter no mínimo o JDK 21 instalado.
+- Verificar Instalação do Java
 ```bash
 # Verifique se o Java 21 (ou superior) já está instalado
 $ java -version
@@ -40,21 +41,24 @@ Se a versão retornada for 21 ou superior, você está pronto para seguir para a
    
 Faça o download do JDK 21 a partir do [site oficial da Oracle](https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html) e siga as instruções de instalação para o seu sistema operacional.
 
-3. Configuração do Banco de Dados
+#### Banco de Dados
+- Configuração do Banco de Dados
 
 Para rodar a aplicação, é necessário ter o banco de dados PostgreSQL disponível localmente com as seguintes configurações:
-Nome do banco de dados: `magazine_dev`
-Usuário: `postgres`
-Senha: `postgres`
+
+- Nome do banco de dados: `magazine_dev`
+- Usuário: `postgres`
+- Senha: `postgres`
 
 <b>Instalação do PostgreSQL</b>
-Caso ainda não tenha o PostgreSQL instalado, você pode instalá-lo de duas maneiras: localmente no seu sistema ou utilizando um container Docker.
+
+Caso ainda não tenha o PostgreSQL instalado, você pode instalá-lo de duas maneiras:
 
 - <b>Instalação Local</b>:
 Para instalar o PostgreSQL localmente, siga as instruções disponíveis no site oficial: [Instalar PostgreSQL](https://www.postgresql.org/download/).
 
 - <b>Instalação via Docker</b>:
-Se preferir usar Docker, execute o comando abaixo para criar um container chamado `magazine-challenge-postgresql` com o PostgreSQL configurado corretamente:
+Se preferir usar Docker, execute o comando abaixo para criar um container chamado `magazine-challenge-postgresql` com o PostgreSQL configurado corretamente para utilizar a aplicação:
 ```bash
 $ docker run --name magazine-challenge-postgresql -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=magazine_dev -p 5432:5432 -d postgres
 ```
@@ -132,14 +136,14 @@ Use o endpoint `GET /api/v1/customers` para listar customers. É possível utili
 
 Os filtros do endpoint são projetados para selecionar usuários com base em critérios específicos aplicados aos seus pedidos (orders). É importante notar que:
 
-- Não há exclusão de pedidos: Os filtros não removem pedidos dos usuários. Em vez disso, eles selecionam usuários que possuem pelo menos um pedido que atende aos critérios do filtro.
-- Retorno de todos os pedidos: Se um usuário for selecionado pelo filtro, todos os seus pedidos serão retornados, mesmo aqueles que não atendem aos critérios do filtro.
+- Retorno Completo dos Pedidos: Os filtros não removem pedidos do customer. Em vez disso, seleciona o customer que possui pelo menos um pedido que atende aos critérios do filtro, retornando todos os seus pedidos, mesmo aqueles que não atendem aos critérios.
 
 Exemplo de Funcionamento do Filtro:
 
 Suponha que um usuário tenha os seguintes pedidos: order_id 1, 2, 3, 4. Se for utilizado o filtro order_id = 2, o comportamento será o seguinte:
 
 `Usuário Selecionado`: O usuário será incluído no resultado porque possui um pedido (order_id = 2) que atende ao critério do filtro.
+
 `Retorno Completo`: Todos os pedidos do usuário (1, 2, 3, 4) serão retornados, e não apenas o pedido que atende ao critério do filtro.
 
 Esse mecanismo garante que os filtros ajudem a identificar usuários relevantes sem excluir informações adicionais sobre seus pedidos.
@@ -150,13 +154,14 @@ Ao fazer uma requisição GET para o endpoint, você pode receber as seguintes r
 - `Sucesso (200 OK)`: Quando a requisição é bem-sucedida, o servidor retorna uma resposta com o status 200 OK. A resposta inclui os dados solicitados.
 - `Erro Interno do Servidor (500 Internal Server Error)`: Se ocorrer um problema no servidor ao processar a requisição, uma resposta com o status 500 Internal Server Error será retornada. Isso indica que algo deu errado no lado do servidor.
 
-## <a id="-testes"></a> Testes
+## Testes
 
-### <a id="️-testes-unitários"></a> Testes unitários
+### Testes unitários com coverage
 
-Para executar os testes unitários, execute o seguinte comando:
-
-```bash
-# Execute os testes unitários
-$ ./gradlew test
+Para executar os testes unitários com coverage e gerar um relatório HTML, foram adicionadas as dependências do Kover no projeto.
 ```
+# Executa os testes unitários com coverage e gera um relatório HTML
+$ ./gradlew koverHtmlReport
+```
+
+Após a execução, o caminho para o relatório gerado será exibido no terminal. O relatório HTML fornece uma visualização detalhada da cobertura dos testes, ajudando a identificar áreas do código que necessitam de mais testes.
