@@ -35,7 +35,7 @@ Para rodar a aplicação, é necessário ter no mínimo o JDK 21 instalado.
 # Verifique se o Java 21 (ou superior) já está instalado
 $ java -version
 ```
-Se a versão retornada for 21 ou superior, você está pronto para seguir para a próxima etapa. Caso contrário, siga as instruções abaixo para instalar o JDK 21.
+Se a versão retornada for 21 ou superior, você está pronto para seguir para a próxima etapa. Caso contrário, siga a instrução abaixo para instalar o JDK 21.
 
 - Download e Instalação do Java 21
    
