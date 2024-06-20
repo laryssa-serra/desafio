@@ -15,14 +15,14 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1/")
 class OrderController(
     private val orderService: OrderService,
     private val importedFileService: ImportedFileService
 ) {
     private val logger = LoggerFactory.getLogger(OrderController::class.java)
 
-    @PostMapping("/orders/imports")
+    @PostMapping("orders/imports")
     fun importOrdersFromMultipartFile(@RequestParam("file") multipartFile: MultipartFile): ResponseEntity<Any> {
         logger.info("Receiving ${multipartFile.originalFilename} file to import orders")
 

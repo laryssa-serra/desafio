@@ -55,7 +55,7 @@ class OrderControllerTest {
         Mockito.`when`(importedFileService.findByName(mockMultipartFile.originalFilename)).thenReturn(null)
 
         mockMvc.perform(
-            MockMvcRequestBuilders.multipart("/api/orders/imports").file(mockMultipartFile)
+            MockMvcRequestBuilders.multipart("/api/v1/orders/imports").file(mockMultipartFile)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
         ).andExpect(MockMvcResultMatchers.status().isCreated)
 
@@ -68,7 +68,7 @@ class OrderControllerTest {
         Mockito.`when`(importedFileService.findByName(mockMultipartFile.originalFilename)).thenReturn(importedFile)
 
         mockMvc.perform(
-            MockMvcRequestBuilders.multipart("/api/orders/imports")
+            MockMvcRequestBuilders.multipart("/api/v1/orders/imports")
                 .file(mockMultipartFile)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
         )
@@ -83,7 +83,7 @@ class OrderControllerTest {
             .thenThrow(RuntimeException("Internal Server Error"))
 
         mockMvc.perform(
-            MockMvcRequestBuilders.multipart("/api/orders/imports")
+            MockMvcRequestBuilders.multipart("/api/v1/orders/imports")
                 .file(mockMultipartFile)
                 .contentType(MediaType.MULTIPART_FORM_DATA)
         )
